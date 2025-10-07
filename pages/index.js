@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div style={{ fontFamily: 'sans-serif', padding: '40px', maxWidth: '600px', margin: 'auto' }}>
       <h1>🎬 Cinéphile Anonyme</h1>
-      <p>Bienvenue sur le site du serveur Discord !</p>
+      <p>Bienvenue sur Cinéphile Anonyme !</p>
 
       <h2 style={{ marginTop: '40px' }}>📺 Vidéos disponibles</h2>
       {videos.length === 0 ? (
