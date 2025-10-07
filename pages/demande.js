@@ -55,17 +55,21 @@ export default function Demande() {
         {suggestions.length > 0 && (
           <ul style={{ border: '1px solid #ccc', maxHeight: '150px', overflowY: 'auto', padding: '5px', margin: 0 }}>
             {suggestions.map(movie => (
-              <li 
-                key={movie.id} 
-                style={{ cursor: 'pointer', marginBottom: '5px' }}
-                onClick={() => {
-                  setTitle(movie.title)
-                  setSuggestions([])
-                  setDescription(movie.overview || '')
-                }}
-              >
-                {movie.title} ({movie.release_date?.split('-')[0]})
-              </li>
+              onClick={async () => {
+  setTitle(movie.title)
+  setSuggestions([])
+
+  // récupération de la traduction française si disponible
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${movie.id}/translations?api_key=${TMDB_API_KEY}`
+  )
+  const translations = await res.json()
+  const french = translations.translations.find(t => t.iso_639_1 === 'fr')
+
+  // si traduction française existe, on l’utilise, sinon fallback sur movie.overview
+  setDescription(french?.data?.overview || movie.overview || '')
+}}
+
             ))}
           </ul>
         )}
