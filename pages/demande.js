@@ -11,11 +11,15 @@ export default function Demande() {
   const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY
 
   async function fetchSuggestions(query) {
-    if (!query) return setSuggestions([])
-    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`)
-    const data = await res.json()
-    setSuggestions(data.results || [])
-  }
+  if (!query) return setSuggestions([])
+  const res = await fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=fr-FR`
+  )
+  const data = await res.json()
+  setSuggestions(data.results || [])
+}
+
+
 
   async function handleSubmit(e) {
     e.preventDefault()
